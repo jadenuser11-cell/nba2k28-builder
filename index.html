@@ -318,7 +318,8 @@
         C: [88, 82, 72, 99, 98, 78, 68, 62, 58, 60, 55, 99, 76, 60, 72, 96, 99, 70, 72, 94, 78]
       };
       let selectedPosition = 'PG';
-      const attributeBudget = 500;
+      const attributeBudget = 750;
+      const potentialTarget = 600;
       let spentPoints = 0;
       let value = 0;
       function update() {
@@ -400,7 +401,7 @@
           input.previousElementSibling.querySelector('strong').textContent = input.value;
           spentPoints = inputs.reduce((sum, item) => sum + Number(item.value), 0);
           const potential = builderContent.querySelector('#potential-value');
-          if (potential) potential.textContent = Math.min(99, Math.floor((spentPoints / attributeBudget) * 99));
+          if (potential) potential.textContent = Math.min(99, Math.floor((spentPoints / potentialTarget) * 99));
           const remaining = builderContent.querySelector('#points-remaining');
           if (remaining) remaining.textContent = (attributeBudget - spentPoints) + ' / ' + attributeBudget;
           updateNextState();
@@ -421,7 +422,7 @@
             input.previousElementSibling.querySelector('strong').textContent = value;
           });
           spentPoints = [...builderContent.querySelectorAll('input[type="range"]')].reduce((sum, input) => sum + Number(input.value), 0);
-          builderContent.querySelector('#potential-value').textContent = Math.min(99, Math.floor((spentPoints / attributeBudget) * 99));
+          builderContent.querySelector('#potential-value').textContent = Math.min(99, Math.floor((spentPoints / potentialTarget) * 99));
           builderContent.querySelector('#points-remaining').textContent = (attributeBudget - spentPoints) + ' / ' + attributeBudget;
           updateNextState();
         }));
@@ -440,7 +441,7 @@
         const potential = builderContent.querySelector('#potential-value');
         if (potential) {
           spentPoints = [...inputs].reduce((sum, input) => sum + Number(input.value), 0);
-          potential.textContent = Math.min(99, Math.floor((spentPoints / attributeBudget) * 99));
+          potential.textContent = Math.min(99, Math.floor((spentPoints / potentialTarget) * 99));
           const remaining = builderContent.querySelector('#points-remaining');
           if (remaining) remaining.textContent = (attributeBudget - spentPoints) + ' / ' + attributeBudget;
           updateNextState();

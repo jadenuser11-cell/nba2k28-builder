@@ -139,6 +139,32 @@
       .dev-stat strong { color: var(--ice); }
       .menu-note { margin: 25px 0 0; color: rgba(216,247,255,.4); font-size: 9px; line-height: 1.7; letter-spacing: .12em; text-transform: uppercase; }
       .menu-footer { position: absolute; right: 0; bottom: 22px; left: 0; display: flex; justify-content: space-between; color: rgba(216,247,255,.4); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+      .team-select { position: absolute; inset: 0; z-index: 4; overflow: auto; padding: 38px max(24px, 5vw) 70px; background: linear-gradient(115deg, rgba(3,12,20,.99), rgba(5,22,36,.97)); opacity: 0; pointer-events: none; transform: translateX(6%); transition: opacity .4s ease, transform .5s ease; }
+      .team-select.visible { opacity: 1; pointer-events: auto; transform: translateX(0); }
+      .team-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; max-width: 1320px; margin: 0 auto 34px; }
+      .team-top h2 { margin: 0; font-size: clamp(42px, 7vw, 105px); line-height: .8; letter-spacing: -.1em; text-transform: uppercase; }
+      .team-top h2 span { color: var(--team-accent, var(--blue)); }
+      .team-kicker { margin: 0 0 13px; color: var(--team-accent, var(--blue)); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; }
+      .team-close { padding: 11px 14px; border: 1px solid rgba(216,247,255,.22); background: transparent; color: var(--muted); font: 700 9px Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+      .team-close:hover { border-color: var(--team-accent, var(--blue)); color: var(--ice); }
+      .team-layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 25px; max-width: 1320px; margin: 0 auto; }
+      .conference { margin-bottom: 25px; }
+      .conference h3 { margin: 0 0 12px; color: rgba(216,247,255,.48); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; }
+      .team-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+      .team-card { min-height: 112px; padding: 14px; border: 1px solid color-mix(in srgb, var(--team-color) 42%, transparent); border-top: 4px solid var(--team-color); background: linear-gradient(145deg, color-mix(in srgb, var(--team-color) 18%, transparent), rgba(216,247,255,.025)); color: var(--ice); text-align: left; cursor: pointer; transition: .2s ease; }
+      .team-card:hover, .team-card.selected { border-color: var(--team-color); background: linear-gradient(145deg, color-mix(in srgb, var(--team-color) 32%, transparent), rgba(216,247,255,.07)); box-shadow: 0 0 22px color-mix(in srgb, var(--team-color) 28%, transparent); transform: translateY(-3px); }
+      .team-card small { display: block; margin-bottom: 20px; color: var(--team-color); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+      .team-card strong { display: block; font-size: 15px; letter-spacing: -.04em; text-transform: uppercase; }
+      .team-preview { align-self: start; position: sticky; top: 15px; padding: 22px; border: 1px solid var(--team-color, rgba(216,247,255,.2)); background: rgba(3,12,20,.8); }
+      .team-preview h3 { margin: 0 0 7px; color: var(--team-accent, var(--blue)); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; }
+      .team-preview h4 { margin: 0; font-size: 31px; letter-spacing: -.08em; text-transform: uppercase; }
+      .team-preview .swatch { width: 100%; height: 12px; margin: 22px 0; background: linear-gradient(90deg, var(--team-color), var(--team-accent)); }
+      .team-preview p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+      .team-select-actions { display: flex; gap: 9px; margin-top: 22px; }
+      .team-action { flex: 1; padding: 13px 8px; border: 1px solid var(--team-color); background: transparent; color: var(--ice); font: 700 9px Arial, sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+      .team-action.primary { background: var(--team-color); color: #07111b; }
+      @media (max-width: 1050px) { .team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+      @media (max-width: 720px) { .team-layout { grid-template-columns: 1fr; } .team-preview { position: static; order: -1; } .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       .builder { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-columns: 205px minmax(0, 1fr) 285px; gap: clamp(24px, 5vw, 80px); padding: 34px max(24px, 5vw); background: linear-gradient(100deg, rgba(3,12,20,.99), rgba(5,24,39,.96) 55%, rgba(4,14,24,.96)); opacity: 0; pointer-events: none; transform: translateX(7%); transition: opacity .45s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
       .builder.visible { opacity: 1; pointer-events: auto; transform: translateX(0); }
       .builder-nav { border-left: 1px solid rgba(216,247,255,.2); }
@@ -288,6 +314,10 @@
         </section>
         <aside class="menu-side"><h3>Build telemetry</h3><div class="dev-stat"><span>Server</span><strong>DEV-01</strong></div><div class="dev-stat"><span>Build</span><strong>0.28.001</strong></div><div class="dev-stat"><span>Latency</span><strong>18 ms</strong></div><div class="dev-stat"><span>Status</span><strong>ONLINE</strong></div><p class="menu-note">This menu represents an in-development experience. Visuals, features, and copy are subject to change.</p></aside>
       </div>
+      <section class="team-select" id="team-select" aria-label="Play Now team select">
+        <div class="team-top"><div><p class="team-kicker">Play Now // Choose your side</p><h2>Pick a<br><span>team</span></h2></div><button class="team-close" id="team-close" type="button">← Main menu</button></div>
+        <div class="team-layout"><div id="team-groups"></div><aside class="team-preview" id="team-preview"><h3>Team selected</h3><h4 id="team-name">Select a team</h4><div class="swatch"></div><p id="team-detail">Choose any NBA team to preview its colors and enter a developer-build matchup.</p><div class="team-select-actions"><button class="team-action" id="random-team" type="button">Random</button><button class="team-action primary" id="start-game" type="button">Continue</button></div></aside></div>
+      </section>
       <section class="builder" id="builder" aria-label="My Career player builder">
         <button class="builder-close" id="builder-close" type="button">← Main menu</button>
         <nav class="builder-nav"><h3>My Career <span>Player builder</span></h3><button class="builder-step active" type="button"><b>01</b> Position</button><button class="builder-step" type="button"><b>02</b> Body</button><button class="builder-step" type="button"><b>03</b> Attributes</button><button class="builder-step" type="button"><b>04</b> Takeover</button></nav>
@@ -304,6 +334,14 @@
       const enter = document.getElementById('enter');
       const menu = document.getElementById('menu');
       const builder = document.getElementById('builder');
+      const teamSelect = document.getElementById('team-select');
+      const teamGroups = document.getElementById('team-groups');
+      const teamPreview = document.getElementById('team-preview');
+      const teamName = document.getElementById('team-name');
+      const teamDetail = document.getElementById('team-detail');
+      const teamClose = document.getElementById('team-close');
+      const startGame = document.getElementById('start-game');
+      const randomTeam = document.getElementById('random-team');
       const nextButton = document.getElementById('next-button');
       const buildName = document.getElementById('build-name');
       const buildNameValue = document.getElementById('build-name-value');
@@ -322,6 +360,29 @@
       const potentialTarget = 600;
       let spentPoints = 0;
       let value = 0;
+      const teams = [
+        ['Eastern Conference','Atlantic','Boston Celtics','#007a33','#ba9653'],['Eastern Conference','Atlantic','Brooklyn Nets','#111111','#ffffff'],['Eastern Conference','Atlantic','New York Knicks','#006bb6','#f58426'],['Eastern Conference','Atlantic','Philadelphia 76ers','#006bb6','#ed174c'],['Eastern Conference','Atlantic','Toronto Raptors','#ce1141','#a1a1a4'],
+        ['Eastern Conference','Central','Chicago Bulls','#ce1141','#000000'],['Eastern Conference','Central','Cleveland Cavaliers','#860038','#fdbb30'],['Eastern Conference','Central','Detroit Pistons','#c8102e','#1d42ba'],['Eastern Conference','Central','Indiana Pacers','#002d62','#fdbb30'],['Eastern Conference','Central','Milwaukee Bucks','#00471b','#eee1c6'],
+        ['Eastern Conference','Southeast','Atlanta Hawks','#e03a3e','#c1d32f'],['Eastern Conference','Southeast','Charlotte Hornets','#1d1160','#00788c'],['Eastern Conference','Southeast','Miami Heat','#98002e','#f9a01b'],['Eastern Conference','Southeast','Orlando Magic','#0077c0','#c4ced4'],['Eastern Conference','Southeast','Washington Wizards','#002b5c','#e31837'],
+        ['Western Conference','Northwest','Denver Nuggets','#0e2240','#fec524'],['Western Conference','Northwest','Minnesota Timberwolves','#0c2340','#236192'],['Western Conference','Northwest','Oklahoma City Thunder','#007ac1','#ef3b24'],['Western Conference','Northwest','Portland Trail Blazers','#e03a3e','#000000'],['Western Conference','Northwest','Utah Jazz','#002b5c','#f9a01b'],
+        ['Western Conference','Pacific','Golden State Warriors','#1d428a','#ffc72c'],['Western Conference','Pacific','LA Clippers','#c8102e','#1d428a'],['Western Conference','Pacific','Los Angeles Lakers','#552583','#fdb927'],['Western Conference','Pacific','Phoenix Suns','#1d1160','#e56020'],['Western Conference','Pacific','Sacramento Kings','#5a2d81','#63727a'],
+        ['Western Conference','Southwest','Dallas Mavericks','#00538c','#002b5e'],['Western Conference','Southwest','Houston Rockets','#ce1141','#000000'],['Western Conference','Southwest','Memphis Grizzlies','#5d76a9','#12173f'],['Western Conference','Southwest','New Orleans Pelicans','#0c2340','#c8102e'],['Western Conference','Southwest','San Antonio Spurs','#c4ced4','#000000']
+      ];
+      let selectedTeam = null;
+      function renderTeams() {
+        teamGroups.innerHTML = ['Eastern Conference','Western Conference'].map((conference) => '<section class="conference"><h3>' + conference + '</h3>' + ['Atlantic','Central','Southeast','Northwest','Pacific','Southwest'].filter((division) => teams.some((team) => team[0] === conference && team[1] === division)).map((division) => '<div class="conference"><h3>' + division + ' Division</h3><div class="team-grid">' + teams.filter((team) => team[0] === conference && team[1] === division).map((team) => '<button class="team-card" type="button" style="--team-color:' + team[3] + ';--team-accent:' + team[4] + '" data-team="' + team[2] + '" data-color="' + team[3] + '" data-accent="' + team[4] + '"><small>' + division + '</small><strong>' + team[2] + '</strong></button>').join('') + '</div></div>').join('') + '</section>').join('');
+        teamGroups.querySelectorAll('.team-card').forEach((card) => card.addEventListener('click', () => selectTeam(card)));
+      }
+      function selectTeam(card) {
+        teamGroups.querySelectorAll('.team-card').forEach((item) => item.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedTeam = card.dataset.team;
+        teamPreview.style.setProperty('--team-color', card.dataset.color);
+        teamPreview.style.setProperty('--team-accent', card.dataset.accent);
+        teamName.textContent = selectedTeam;
+        teamDetail.textContent = selectedTeam + ' selected // ' + card.querySelector('small').textContent + ' Division // developer matchup ready.';
+      }
+      renderTeams();
       function update() {
         value = Math.min(100, value);
         fill.style.width = value + '%';
@@ -338,8 +399,9 @@
         if (value >= 100) clearInterval(timer);
       }, 180);
       enter.addEventListener('click', () => { screen.classList.add('done'); window.setTimeout(() => menu.classList.add('visible'), 500); });
-      document.querySelectorAll('.menu-link').forEach((link) => link.addEventListener('click', () => { document.querySelectorAll('.menu-link').forEach((item) => item.classList.remove('active')); link.classList.add('active'); }));
+      document.querySelectorAll('.menu-link').forEach((link) => link.addEventListener('click', () => { document.querySelectorAll('.menu-link').forEach((item) => item.classList.remove('active')); link.classList.add('active'); if (/play now/i.test(link.textContent)) teamSelect.classList.add('visible'); }));
       document.querySelectorAll('.mode-card').forEach((card) => card.addEventListener('click', () => { document.querySelectorAll('.mode-card').forEach((item) => item.classList.remove('selected')); card.classList.add('selected'); }));
+      document.querySelector('.mode-card strong').closest('.mode-card').addEventListener('click', () => teamSelect.classList.add('visible'));
       document.querySelectorAll('.menu-link, .mode-card').forEach((item) => item.addEventListener('click', () => { if (/my career/i.test(item.textContent)) { builder.classList.add('visible'); menu.classList.add('builder-open'); } }));
       const builderContent = document.getElementById('builder-content');
       const builderSide = document.querySelector('.builder-side');
@@ -456,6 +518,16 @@
       document.querySelectorAll('.builder-step').forEach((step) => step.addEventListener('click', () => { document.querySelectorAll('.builder-step').forEach((item) => item.classList.remove('active')); step.classList.add('active'); renderBuilderStep(step.textContent.trim().replace(/^\d+\s*/, '')); }));
       renderBuilderStep('Position');
       document.getElementById('builder-close').addEventListener('click', () => { builder.classList.remove('visible'); menu.classList.remove('builder-open'); });
+      teamClose.addEventListener('click', () => teamSelect.classList.remove('visible'));
+      randomTeam.addEventListener('click', () => {
+        const cards = [...teamGroups.querySelectorAll('.team-card')];
+        selectTeam(cards[Math.floor(Math.random() * cards.length)]);
+      });
+      startGame.addEventListener('click', () => {
+        if (!selectedTeam) return;
+        teamDetail.textContent = selectedTeam + ' locked in // loading matchup presentation...';
+        startGame.textContent = 'LOCKED IN';
+      });
       nextButton.addEventListener('click', () => {
         if (nextButton.disabled) return;
         const first = ['Quantum', 'Rim', 'Glass', 'Lockdown', 'Skyline', 'Midnight', 'Frost'];
@@ -466,7 +538,7 @@
         nextButton.classList.remove('ready');
         nextButton.disabled = true;
       });
-      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { builder.classList.remove('visible'); menu.classList.remove('builder-open'); menu.classList.remove('visible'); screen.classList.remove('done'); } });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { teamSelect.classList.remove('visible'); builder.classList.remove('visible'); menu.classList.remove('builder-open'); menu.classList.remove('visible'); screen.classList.remove('done'); } });
     </script>
   </body>
 </html>

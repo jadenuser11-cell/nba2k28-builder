@@ -116,6 +116,20 @@
 
       .menu { position: fixed; inset: 0; z-index: 10; overflow: auto; background: linear-gradient(90deg, rgba(3,12,20,.98) 0%, rgba(4,18,30,.9) 44%, rgba(4,13,22,.63) 100%), radial-gradient(circle at 74% 38%, rgba(98,217,255,.2), transparent 33%), #06111d; opacity: 0; pointer-events: none; transform: scale(1.02); transition: opacity .5s ease, transform .5s ease; }
       .menu.visible { opacity: 1; pointer-events: auto; transform: scale(1); }
+      .access-code { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 24px; background: linear-gradient(135deg, rgba(3,12,20,.99), rgba(5,28,45,.98)); opacity: 0; pointer-events: none; transition: opacity .45s ease; }
+      .access-code.visible { opacity: 1; pointer-events: auto; }
+      .access-card { width: min(520px, 100%); padding: clamp(28px, 6vw, 58px); border: 1px solid rgba(98,217,255,.45); background: rgba(4,17,29,.88); box-shadow: 0 0 55px rgba(98,217,255,.12); }
+      .access-kicker { margin: 0 0 16px; color: var(--blue); font-size: 10px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; }
+      .access-card h2 { margin: 0; font-size: clamp(40px, 8vw, 72px); line-height: .85; letter-spacing: -.08em; text-transform: uppercase; }
+      .access-card h2 span { color: var(--blue); }
+      .access-copy { margin: 22px 0 27px; color: var(--muted); font-size: 11px; line-height: 1.7; letter-spacing: .08em; text-transform: uppercase; }
+      .access-form { display: flex; gap: 9px; }
+      .access-input { min-width: 0; flex: 1; padding: 14px; border: 1px solid rgba(216,247,255,.25); outline: none; background: rgba(216,247,255,.05); color: var(--ice); font: 700 13px Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+      .access-input:focus { border-color: var(--blue); box-shadow: 0 0 18px rgba(98,217,255,.18); }
+      .access-submit { padding: 14px 16px; border: 1px solid var(--blue); background: var(--blue); color: var(--deep); font: 700 10px Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+      .access-submit:hover { background: var(--ice); }
+      .access-error { min-height: 17px; margin: 13px 0 0; color: #ff6d6d; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+      @media (max-width: 480px) { .access-form { flex-direction: column; } }
       .menu::before { content: ""; position: absolute; inset: 0; opacity: .16; background: linear-gradient(120deg, transparent 25%, rgba(216,247,255,.22) 25.1%, transparent 25.3%), linear-gradient(90deg, transparent 66%, rgba(98,217,255,.14) 66.1%, transparent 66.2%); pointer-events: none; }
       .menu-shell { position: relative; z-index: 1; display: grid; grid-template-columns: 180px minmax(0, 1fr) 250px; gap: clamp(24px, 5vw, 80px); width: min(1500px, calc(100% - 80px)); min-height: 100%; margin: auto; padding: 34px 0; }
       .menu-nav { display: flex; flex-direction: column; border-left: 1px solid rgba(216,247,255,.2); }
@@ -291,6 +305,18 @@
         <footer class="bottom"><span>Developer preview // not representative of final product</span><span class="signal"><i></i> Dev server stable</span><span>Press start to preview</span></footer>
       </div>
     </main>
+    <section class="access-code" id="access-code" aria-label="Developer access code">
+      <form class="access-card" id="access-form">
+        <p class="access-kicker">Developer build // restricted preview</p>
+        <h2>Enter<br><span>access code</span></h2>
+        <p class="access-copy">This unreleased build is locked. Enter the developer code to continue to NBA 2K28.</p>
+        <div class="access-form">
+          <input class="access-input" id="access-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ENTER CODE" aria-label="Developer access code" />
+          <button class="access-submit" type="submit">Unlock</button>
+        </div>
+        <p class="access-error" id="access-error" role="status" aria-live="polite"></p>
+      </form>
+    </section>
     <section class="menu" id="menu" aria-label="NBA 2K28 developer preview main menu">
       <div class="menu-shell">
         <nav class="menu-nav">
@@ -333,6 +359,11 @@
       const stepLabel = document.getElementById('step-label');
       const enter = document.getElementById('enter');
       const menu = document.getElementById('menu');
+      const accessCode = document.getElementById('access-code');
+      const accessForm = document.getElementById('access-form');
+      const accessInput = document.getElementById('access-input');
+      const accessError = document.getElementById('access-error');
+      const developerCode = 'ZENSAREUSEFULL';
       const builder = document.getElementById('builder');
       const teamSelect = document.getElementById('team-select');
       const teamGroups = document.getElementById('team-groups');
@@ -398,7 +429,18 @@
         update();
         if (value >= 100) clearInterval(timer);
       }, 180);
-      enter.addEventListener('click', () => { screen.classList.add('done'); window.setTimeout(() => menu.classList.add('visible'), 500); });
+      enter.addEventListener('click', () => { screen.classList.add('done'); accessCode.classList.add('visible'); window.setTimeout(() => accessInput.focus(), 450); });
+      accessForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (accessInput.value.trim().toUpperCase() !== developerCode) {
+          accessError.textContent = 'Access denied // check the developer code';
+          accessInput.select();
+          return;
+        }
+        accessError.textContent = 'Access granted // loading preview';
+        accessCode.classList.remove('visible');
+        menu.classList.add('visible');
+      });
       document.querySelectorAll('.menu-link').forEach((link) => link.addEventListener('click', () => { document.querySelectorAll('.menu-link').forEach((item) => item.classList.remove('active')); link.classList.add('active'); if (/play now/i.test(link.textContent)) teamSelect.classList.add('visible'); }));
       document.querySelectorAll('.mode-card').forEach((card) => card.addEventListener('click', () => { document.querySelectorAll('.mode-card').forEach((item) => item.classList.remove('selected')); card.classList.add('selected'); }));
       document.querySelector('.mode-card strong').closest('.mode-card').addEventListener('click', () => teamSelect.classList.add('visible'));

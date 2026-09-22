@@ -1,3 +1,3 @@
 the link https://jadenuser11-cell.github.io/nba2k28-builder/index.html?v=8
 I DO UPDATES EVERY SINGLE DAY.....
-CODDE..... PUT ZENS AND ARE AND USEFUL ALL TOGETHER...... READ NOWWW
+CODDE..... JADENMAKESTHEBESTGAMES...... READ NOWWW

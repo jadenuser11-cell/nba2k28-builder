@@ -311,7 +311,7 @@
       <form class="access-card" id="access-form">
         <p class="access-kicker">Enter the city // step 2 of 2</p>
         <h2>Enter code<br><span>to continue</span></h2>
-        <p class="access-copy">Developer access required. Enter the code below to continue into NBA 2K28.</p>
+        <p class="access-copy">Use the same developer code for the city and My Career Continue screens.</p>
         <div class="access-form">
           <input class="access-input" id="access-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ENTER CODE" aria-label="Developer access code" />
           <button class="access-submit" type="submit">Continue</button>
@@ -369,6 +369,7 @@
       const accessError = document.getElementById('access-error');
       const developerCode = 'JADENMAKESTHEBESTGAMES';
       let codePurpose = 'menu';
+      const isDeveloperCodeValid = (input) => input.trim().toUpperCase() === developerCode;
       const builder = document.getElementById('builder');
       const teamSelect = document.getElementById('team-select');
       const teamGroups = document.getElementById('team-groups');
@@ -435,10 +436,10 @@
         update();
         if (value >= 100) clearInterval(timer);
       }, 180);
-      enter.addEventListener('click', () => { screen.classList.add('done'); accessCode.classList.add('visible'); window.setTimeout(() => accessInput.focus(), 450); });
+      enter.addEventListener('click', () => { codePurpose = 'menu'; screen.classList.add('done'); accessInput.value = ''; accessError.textContent = ''; accessCode.classList.add('visible'); window.setTimeout(() => accessInput.focus(), 450); });
       accessForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (accessInput.value.trim().toUpperCase() !== developerCode) {
+        if (!isDeveloperCodeValid(accessInput.value)) {
           accessError.textContent = 'Access denied // check the developer code';
           accessInput.select();
           return;

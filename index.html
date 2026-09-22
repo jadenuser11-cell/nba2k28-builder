@@ -220,10 +220,12 @@
       .builder-actions { display: flex; gap: 8px; margin-top: 26px; }
       .builder-action { flex: 1; padding: 12px 8px; border: 1px solid rgba(216,247,255,.2); background: transparent; color: var(--ice); font: 700 9px Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
       .builder-action.primary { border-color: var(--blue); background: var(--blue); color: var(--deep); }
-      .next-button { position: fixed; right: 34px; bottom: 30px; z-index: 20; width: min(280px, calc(100vw - 68px)); padding: 19px 12px; border: 1px solid rgba(216,247,255,.28); background: rgba(4,17,29,.96); color: rgba(216,247,255,.48); font: 900 16px Arial, sans-serif; letter-spacing: .3em; text-transform: uppercase; cursor: not-allowed; transition: .25s ease; }
+      .next-button { position: fixed; right: 34px; bottom: 84px; z-index: 20; width: min(280px, calc(100vw - 68px)); padding: 19px 12px; border: 1px solid rgba(216,247,255,.28); background: rgba(4,17,29,.96); color: rgba(216,247,255,.48); font: 900 16px Arial, sans-serif; letter-spacing: .3em; text-transform: uppercase; cursor: not-allowed; transition: .25s ease; }
       .next-button.ready { border-color: var(--blue); background: var(--blue); color: var(--deep); box-shadow: 0 0 28px rgba(98,217,255,.35); cursor: pointer; animation: next-pulse 1.4s ease-in-out infinite; }
       .next-button.ready:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(98,217,255,.55); }
       .next-button:disabled { opacity: 1; }
+      .save-build { position: fixed; right: 34px; bottom: 30px; z-index: 20; width: min(280px, calc(100vw - 68px)); padding: 14px 12px; border: 1px solid var(--blue); background: rgba(4,17,29,.96); color: var(--ice); font: 900 11px Arial, sans-serif; letter-spacing: .24em; text-transform: uppercase; cursor: pointer; transition: .25s ease; }
+      .save-build:hover, .save-build.saved { background: var(--blue); color: var(--deep); box-shadow: 0 0 28px rgba(98,217,255,.35); }
       @keyframes next-pulse { 50% { box-shadow: 0 0 12px rgba(98,217,255,.18); } }
       .build-name { display: none; margin: 18px 0 0; padding-top: 15px; border-top: 1px solid rgba(216,247,255,.14); color: var(--blue); font-size: 10px; letter-spacing: .18em; line-height: 1.5; text-transform: uppercase; }
       .build-name.visible { display: block; }
@@ -263,7 +265,7 @@
       .attribute-group.rebounding input[type="range"] { accent-color: #c084fc; }
       .attribute-group.physical input[type="range"] { accent-color: #d5aa72; }
       @media (max-width: 900px) { .builder { grid-template-columns: 135px minmax(0, 1fr); padding: 20px; } .builder-side { display: none; } }
-      @media (max-width: 560px) { .builder { grid-template-columns: 1fr; overflow: auto; } .builder-nav { border-left: 0; border-bottom: 1px solid rgba(216,247,255,.2); padding-bottom: 12px; } .builder-nav h3 { margin: 0 0 12px; } .builder-step { display: inline-block; width: auto; padding: 9px 10px; } .builder-main { padding-top: 28px; } .builder-close { top: 20px; right: 20px; } .next-button { right: 18px; bottom: 18px; width: calc(100vw - 36px); } }
+      @media (max-width: 560px) { .builder { grid-template-columns: 1fr; overflow: auto; } .builder-nav { border-left: 0; border-bottom: 1px solid rgba(216,247,255,.2); padding-bottom: 12px; } .builder-nav h3 { margin: 0 0 12px; } .builder-step { display: inline-block; width: auto; padding: 9px 10px; } .builder-main { padding-top: 28px; } .builder-close { top: 20px; right: 20px; } .next-button { right: 18px; bottom: 78px; width: calc(100vw - 36px); } .save-build { right: 18px; bottom: 18px; width: calc(100vw - 36px); } }
       @media (max-width: 900px) { .menu-shell { grid-template-columns: 130px minmax(0, 1fr); width: min(100% - 36px, 700px); } .menu-side { display: none; } .menu-cards { grid-template-columns: 1fr; } .menu-footer { position: static; margin-top: 32px; gap: 20px; flex-wrap: wrap; } }
       @media (max-width: 1100px) and (min-width: 901px) { .menu-shell { grid-template-columns: 155px minmax(0, 1fr); width: min(100% - 48px, 900px); gap: 34px; } .menu-side { display: none; } }
       @media (max-width: 560px) { .menu-shell { grid-template-columns: 1fr; padding-top: 20px; } .menu-nav { border-left: 0; border-bottom: 1px solid rgba(216,247,255,.2); padding-bottom: 12px; } .menu-brand { margin: 0 0 12px; } .menu-link { display: inline-block; padding: 9px 12px; } .menu-main { padding-top: 35px; } }
@@ -348,7 +350,8 @@
         <button class="builder-close" id="builder-close" type="button">← Main menu</button>
         <nav class="builder-nav"><h3>My Career <span>Player builder</span></h3><button class="builder-step active" type="button"><b>01</b> Position</button><button class="builder-step" type="button"><b>02</b> Body</button><button class="builder-step" type="button"><b>03</b> Attributes</button><button class="builder-step" type="button"><b>04</b> Takeover</button></nav>
         <section class="builder-main" id="builder-content"></section>
-        <aside class="builder-side"><h3>Build snapshot</h3><div class="attribute"><div class="attribute-head"><span>Finishing</span><strong>72</strong></div><div class="attribute-bar"><i style="--level:72%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Shooting</span><strong>84</strong></div><div class="attribute-bar"><i style="--level:84%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Playmaking</span><strong>91</strong></div><div class="attribute-bar"><i style="--level:91%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Defense</span><strong>68</strong></div><div class="attribute-bar"><i style="--level:68%"></i></div></div><div class="builder-actions"><button class="builder-action" type="button">Randomize</button><button class="builder-action primary" type="button">Continue</button></div><button class="next-button" id="next-button" type="button" disabled>NEXT</button><div class="build-name" id="build-name">Build generated<strong id="build-name-value"></strong></div></aside>
+        <aside class="builder-side"><h3>Build snapshot</h3><div class="attribute"><div class="attribute-head"><span>Finishing</span><strong>72</strong></div><div class="attribute-bar"><i style="--level:72%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Shooting</span><strong>84</strong></div><div class="attribute-bar"><i style="--level:84%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Playmaking</span><strong>91</strong></div><div class="attribute-bar"><i style="--level:91%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Defense</span><strong>68</strong></div><div class="attribute-bar"><i style="--level:68%"></i></div></div><div class="builder-actions"><button class="builder-action" type="button">Randomize</button><button class="builder-action primary" type="button">Continue</button></div><div class="build-name" id="build-name">Build generated<strong id="build-name-value"></strong></div></aside>
+        <button class="next-button" id="next-button" type="button" disabled>NEXT</button><button class="save-build" id="save-build" type="button">SAVE BUILD</button>
       </section>
     </section>
     <script>
@@ -374,6 +377,7 @@
       const startGame = document.getElementById('start-game');
       const randomTeam = document.getElementById('random-team');
       const nextButton = document.getElementById('next-button');
+      const saveBuild = document.getElementById('save-build');
       const buildName = document.getElementById('build-name');
       const buildNameValue = document.getElementById('build-name-value');
       const progress = document.querySelector('[role="progressbar"]');
@@ -579,6 +583,18 @@
         nextButton.textContent = 'BUILD SAVED';
         nextButton.classList.remove('ready');
         nextButton.disabled = true;
+      });
+      saveBuild.addEventListener('click', () => {
+        const savedBuild = {
+          position: selectedPosition,
+          step: document.querySelector('.builder-step.active')?.textContent.trim() || 'Position',
+          attributes: [...builder.querySelectorAll('input[type="range"]')].map((input) => ({ name: input.getAttribute('aria-label'), value: Number(input.value) })),
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem('nba2k28-saved-build', JSON.stringify(savedBuild));
+        saveBuild.textContent = 'BUILD SAVED';
+        saveBuild.classList.add('saved');
+        window.setTimeout(() => { saveBuild.textContent = 'SAVE BUILD'; saveBuild.classList.remove('saved'); }, 1800);
       });
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { teamSelect.classList.remove('visible'); builder.classList.remove('visible'); menu.classList.remove('builder-open'); menu.classList.remove('visible'); screen.classList.remove('done'); } });
     </script>

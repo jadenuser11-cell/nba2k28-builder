@@ -227,7 +227,7 @@
       .save-build { position: fixed; right: 34px; bottom: 30px; z-index: 20; width: min(280px, calc(100vw - 68px)); padding: 14px 12px; border: 1px solid var(--blue); background: rgba(4,17,29,.96); color: var(--ice); font: 900 11px Arial, sans-serif; letter-spacing: .24em; text-transform: uppercase; cursor: pointer; transition: .25s ease; }
       .save-build:hover, .save-build.saved { background: var(--blue); color: var(--deep); box-shadow: 0 0 28px rgba(98,217,255,.35); }
       @keyframes next-pulse { 50% { box-shadow: 0 0 12px rgba(98,217,255,.18); } }
-      .build-name { display: none; margin: 18px 0 0; padding-top: 15px; border-top: 1px solid rgba(216,247,255,.14); color: var(--blue); font-size: 10px; letter-spacing: .18em; line-height: 1.5; text-transform: uppercase; }
+      .build-name { position: relative; display: none; margin: 18px 0 0; padding: 15px 116px 0 0; border-top: 1px solid rgba(216,247,255,.14); color: var(--blue); font-size: 10px; letter-spacing: .18em; line-height: 1.5; text-transform: uppercase; }
       .build-name.visible { display: block; }
       .build-name strong { display: block; margin-top: 6px; color: var(--ice); font-size: 20px; letter-spacing: -.04em; text-transform: uppercase; }
       .menu.builder-open .menu-shell { visibility: hidden; pointer-events: none; }
@@ -351,7 +351,8 @@
         <nav class="builder-nav"><h3>My Career <span>Player builder</span></h3><button class="builder-step active" type="button"><b>01</b> Position</button><button class="builder-step" type="button"><b>02</b> Body</button><button class="builder-step" type="button"><b>03</b> Attributes</button><button class="builder-step" type="button"><b>04</b> Takeover</button></nav>
         <section class="builder-main" id="builder-content"></section>
         <aside class="builder-side"><h3>Build snapshot</h3><div class="attribute"><div class="attribute-head"><span>Finishing</span><strong>72</strong></div><div class="attribute-bar"><i style="--level:72%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Shooting</span><strong>84</strong></div><div class="attribute-bar"><i style="--level:84%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Playmaking</span><strong>91</strong></div><div class="attribute-bar"><i style="--level:91%"></i></div></div><div class="attribute"><div class="attribute-head"><span>Defense</span><strong>68</strong></div><div class="attribute-bar"><i style="--level:68%"></i></div></div><div class="builder-actions"><button class="builder-action" type="button">Randomize</button><button class="builder-action primary" type="button">Continue</button></div><div class="build-name" id="build-name">Build generated<strong id="build-name-value"></strong></div></aside>
-        <button class="next-button" id="next-button" type="button" disabled>NEXT</button><button class="save-build" id="save-build" type="button">SAVE BUILD</button>
+        <button class="next-button" id="next-button" type="button" disabled>NEXT</button>
+        <button class="save-build" id="save-build" type="button">SAVE BUILD</button>
       </section>
     </section>
     <script>

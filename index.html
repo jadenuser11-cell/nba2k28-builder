@@ -368,6 +368,7 @@
       const accessInput = document.getElementById('access-input');
       const accessError = document.getElementById('access-error');
       const developerCode = 'ZENSAREUSEFULL';
+      let codePurpose = 'menu';
       const builder = document.getElementById('builder');
       const teamSelect = document.getElementById('team-select');
       const teamGroups = document.getElementById('team-groups');
@@ -444,7 +445,12 @@
         }
         accessError.textContent = 'Access granted // loading preview';
         accessCode.classList.remove('visible');
-        menu.classList.add('visible');
+        if (codePurpose === 'menu') {
+          menu.classList.add('visible');
+        } else {
+          const continueButton = document.querySelector('.builder-action.primary');
+          if (continueButton) continueButton.textContent = 'CONTINUED';
+        }
       });
       document.querySelectorAll('.menu-link').forEach((link) => link.addEventListener('click', () => { document.querySelectorAll('.menu-link').forEach((item) => item.classList.remove('active')); link.classList.add('active'); if (/play now/i.test(link.textContent)) teamSelect.classList.add('visible'); }));
       document.querySelectorAll('.mode-card').forEach((card) => card.addEventListener('click', () => { document.querySelectorAll('.mode-card').forEach((item) => item.classList.remove('selected')); card.classList.add('selected'); }));
@@ -565,6 +571,13 @@
       document.querySelectorAll('.builder-step').forEach((step) => step.addEventListener('click', () => { document.querySelectorAll('.builder-step').forEach((item) => item.classList.remove('active')); step.classList.add('active'); renderBuilderStep(step.textContent.trim().replace(/^\d+\s*/, '')); }));
       renderBuilderStep('Position');
       document.getElementById('builder-close').addEventListener('click', () => { builder.classList.remove('visible'); menu.classList.remove('builder-open'); });
+      document.querySelector('.builder-action.primary').addEventListener('click', () => {
+        codePurpose = 'builder';
+        accessInput.value = '';
+        accessError.textContent = '';
+        accessCode.classList.add('visible');
+        window.setTimeout(() => accessInput.focus(), 200);
+      });
       teamClose.addEventListener('click', () => teamSelect.classList.remove('visible'));
       randomTeam.addEventListener('click', () => {
         const cards = [...teamGroups.querySelectorAll('.team-card')];
